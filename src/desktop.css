@@ -11,7 +11,7 @@
     display: none;
   }
 
-  section {
+  .login-section, .register-section {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -25,5 +25,15 @@
 
   .logo-long img {
     width: 250px;
+  }
+
+  /* estilos muro */
+
+  .logo-short {
+    display: none;
+  }
+
+  .logo-long {
+    display: block;
   }
 }

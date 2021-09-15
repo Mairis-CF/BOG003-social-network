@@ -2,6 +2,7 @@ import { signInUser, signInWithGoogle } from "../index.js";
 
 export const createLogInView = () => {
   const loginSection = document.createElement("section");
+  loginSection.setAttribute('class', 'login-section');
   const loginView = `
   <div class="brand">
     <div class="young-guy">
