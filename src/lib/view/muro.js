@@ -1,4 +1,4 @@
-import { savePost, getPost, logOutUser } from "../index.js";
+import { savePost, getPost, onGetPost, logOutUser } from "../index.js";
 
 export const createTimeLineView = () => {
   const timeLineSection = document.createElement("section");
@@ -72,12 +72,16 @@ export const createTimeLineView = () => {
   };
   
   /* Obtener los post de la base de datos y mostrarlos en el dom*/
-  getPost().then((snapshot) => {
-    snapshot.docs.forEach(doc => {
-      showPost(doc);
-    });
-  })
 
+  getPost().then((snapshot) => {
+    onGetPost((snapshot) => {
+      postSection.innerHTML = ''; 
+      snapshot.docs.forEach(doc => {
+        showPost(doc);
+      });
+    });
+    });
+  
   /* Botón para que el usuario cierre sesión */
   const logOut = timeLineSection.querySelector("#logOut");
   logOut.addEventListener("click", (e) => {

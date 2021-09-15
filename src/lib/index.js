@@ -31,3 +31,7 @@ export const savePost = (userName, postText) => {
 export const getPost = () => {
   return db.collection('posts').get()
 };
+
+export const onGetPost = (callback) => {
+return db.collection('posts').onSnapshot(callback)
+}
