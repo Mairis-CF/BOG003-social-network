@@ -20,3 +20,14 @@ export const signInWithGoogle = () => {
  var provider = new firebase.auth.GoogleAuthProvider();
  return firebase.auth().signInWithPopup(provider)
 };
+
+export const savePost = (userName, postText) => {
+  db.collection('posts').add({
+    user: userName,
+    userPost: postText
+  })
+};
+
+export const getPost = () => {
+  return db.collection('posts').get()
+};

@@ -12,7 +12,7 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
-section {
+.login-section, .register-section {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -179,6 +179,54 @@ p.or::before {
 
 /*Estilos Muro*/
 
-#logOut img {
+/* Header */
+.muro-section {
+  padding: 2rem;
+}
+
+.header-muro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-name {
+  font-size: 1.5rem;
+}
+
+.log-out {
+  background-color: var(--black-code);
+  border: none;
+  cursor: pointer;
+}
+
+.log-out img {
   width: 50px;
 }
+
+.logo-long {
+  display: none;
+}
+
+/* Sección de publicaciones */
+.post-section {
+  width: 70%;
+}
+
+.post-container {
+  border: 2px solid var(--violet-code);
+  margin-bottom: 3rem;
+}
+
+.post-by {
+  background-color: var(--violet-code);
+  padding: .5rem 1rem;
+}
+
+.post-content {
+  padding: .5rem 1rem;
+}
+
+
+
+

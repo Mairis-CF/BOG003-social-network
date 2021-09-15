@@ -3,6 +3,7 @@ import { signInWithGoogle } from '../index.js';
 
 export const createRegisterView = () => {
   const registerSection = document.createElement('section');
+  registerSection.setAttribute('class', 'register-section');
   const registerView = `
   <div class="brand">
       <div class="logo-long">
