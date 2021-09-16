@@ -24,14 +24,17 @@ export const signInWithGoogle = () => {
 export const savePost = (userName, postText) => {
   db.collection('posts').add({
     user: userName,
-    userPost: postText
+    userPost: postText,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    
+
   })
 };
 
-export const getPost = () => {
-  return db.collection('posts').get()
+export const getPosts = (callback) => {
+return db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(callback)
 };
 
-export const onGetPost = (callback) => {
-return db.collection('posts').onSnapshot(callback)
-}
+/* export const getPost = (idPost) => {
+  return db.collection('posts').get(idPost)
+}; */

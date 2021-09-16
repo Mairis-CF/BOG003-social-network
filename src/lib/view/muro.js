@@ -1,4 +1,4 @@
-import { savePost, getPost, onGetPost, logOutUser } from "../index.js";
+import { savePost, getPosts, /* getPost, */ logOutUser } from "../index.js";
 
 export const createTimeLineView = () => {
   const timeLineSection = document.createElement("section");
@@ -67,20 +67,18 @@ export const createTimeLineView = () => {
     /* Agregar el nombre y texto al container y luego a la sección del DOM */
     postContainer.appendChild(postBy);
     postContainer.appendChild(postContent);
-
+        
     postSection.appendChild(postContainer);
   };
   
   /* Obtener los post de la base de datos y mostrarlos en el dom*/
-
-  getPost().then((snapshot) => {
-    onGetPost((snapshot) => {
-      postSection.innerHTML = ''; 
-      snapshot.docs.forEach(doc => {
-        showPost(doc);
-      });
+  getPosts((snapshot) => {
+    postSection.innerHTML = ''; 
+    snapshot.docs.forEach(doc => {
+      showPost(doc);
     });
-    });
+  });
+  
   
   /* Botón para que el usuario cierre sesión */
   const logOut = timeLineSection.querySelector("#logOut");
