@@ -227,6 +227,10 @@ p.or::before {
   padding: .5rem 1rem;
 }
 
+.edit-button img, .delete-button img,.like-button img{
+  width: 20px;
+}
 
-
-
+.spanEdit, .spanDelete{
+  display: none;
+}

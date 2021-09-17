@@ -1,7 +1,7 @@
-import { savePost, getPosts, /* getPost, */ logOutUser } from "../index.js";
+import { savePost, getPosts, editPost, logOutUser } from '../index.js';
 
 export const createTimeLineView = () => {
-  const timeLineSection = document.createElement("section");
+  const timeLineSection = document.createElement('section');
   timeLineSection.setAttribute('class', 'muro-section');
   const timeLineView = `    
     <header class="header-muro">
@@ -29,27 +29,28 @@ export const createTimeLineView = () => {
   /* Mostrar el nombre del usuario en el header */
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      const userName = timeLineSection.querySelector("#userName");
+      const userName = timeLineSection.querySelector('#userName');
       userName.textContent = user.displayName;
     }
   });
 
-  /* Guardar el post en la base de datos*/
-  const postForm = timeLineSection.querySelector("#postForm");  
-    
-  postForm.addEventListener("submit", (e) => {
+  /* Guardar el post en la base de datos */
+  const postForm = timeLineSection.querySelector('#postForm');
+
+  postForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const userName = firebase.auth().currentUser.displayName;
     const postText = postForm.post.value;
-    savePost(userName, postText);
+    const userId = firebase.auth().currentUser.uid;
+    savePost(userName, postText, userId);
     postForm.reset();
   });
 
   /* Crear e insertar los elementos de un post en el DOM */
-  const postSection = timeLineSection.querySelector("#postSection");
-  
+  const postSection = timeLineSection.querySelector('#postSection');
+
   const showPost = (doc) => {
-    /* Crear los elementos de la publicación y agregar clase para estilos*/
+    /* Crear los elementos de la publicación y agregar clase para estilos */
     const postContainer = document.createElement('div');
     postContainer.setAttribute('class', 'post-container');
     postContainer.setAttribute('data-id', doc.id);
@@ -60,6 +61,33 @@ export const createTimeLineView = () => {
     const postContent = document.createElement('p');
     postContent.setAttribute('class', 'post-content');
 
+    const buttons = document.createElement('div');
+
+    const spanLike = document.createElement('span');
+    const likeButton = `
+      <button class="like-button" id="likeBtn">
+        <img src="images/like.png" alt="me gusta">
+      </button>  
+    `;
+    spanLike.innerHTML = likeButton;
+
+    const spanEdit = document.createElement('span');
+    const editButton = `
+      <button class="edit-button" id="editBtn">
+         <img src="images/pencil.png" alt="editar">
+      </button>
+    `;
+    spanEdit.innerHTML = editButton;
+    spanEdit.className = 'spanEdit';
+
+    const spanDelete = document.createElement('span');
+    const deleteButton = `
+      <button class="delete-button" id="deleteBtn">
+        <img src="images/bin.png" alt="eliminar">
+      </button>
+    `;
+    spanDelete.innerHTML = deleteButton;
+    spanDelete.className = 'spanDelete';
     /* Agregar el texto del nombre y la publicación a los elementos */
     postBy.textContent = `Publicado por ${doc.data().user}`;
     postContent.textContent = doc.data().userPost;
@@ -67,26 +95,37 @@ export const createTimeLineView = () => {
     /* Agregar el nombre y texto al container y luego a la sección del DOM */
     postContainer.appendChild(postBy);
     postContainer.appendChild(postContent);
-        
+    buttons.append(spanLike, spanEdit, spanDelete);
+    postContainer.appendChild(buttons);
     postSection.appendChild(postContainer);
+
+    const currentUserId = firebase.auth().currentUser.uid;
+    const userIdPost = doc.data().userId;
+
+    if (currentUserId === userIdPost) {
+      spanEdit.style.display = 'block';
+      spanDelete.style.display = 'block';
+    }
   };
-  
-  /* Obtener los post de la base de datos y mostrarlos en el dom*/
+
+  /* Obtener los post de la base de datos y mostrarlos en el dom */
   getPosts((snapshot) => {
-    postSection.innerHTML = ''; 
-    snapshot.docs.forEach(doc => {
+    postSection.innerHTML = '';
+    snapshot.docs.forEach((doc) => {
       showPost(doc);
     });
   });
-  
-  
+
+  const editBtn = postSection.querySelector('.spanEdit');
+  console.log(editBtn);
+
   /* Botón para que el usuario cierre sesión */
-  const logOut = timeLineSection.querySelector("#logOut");
-  logOut.addEventListener("click", (e) => {
+  const logOut = timeLineSection.querySelector('#logOut');
+  logOut.addEventListener('click', (e) => {
     e.preventDefault();
     logOutUser()
       .then(() => {
-        window.location.hash = "#/ingreso";
+        window.location.hash = '#/ingreso';
       })
       .catch((error) => {
         console.log(error);
@@ -95,53 +134,3 @@ export const createTimeLineView = () => {
 
   return timeLineSection;
 };
-
-/* posts = [
-    { "sdjsahdsaklhdsa" : ¨{
-      user: "string",
-      post: "string2"
-      }
-    },
-    { "sdjsahdsaklhdsa" : ¨[
-      user: "string",
-      post: "string2"
-      ]
-    },
-    { "sdjsahdsaklhdsa" : ¨[
-      user: "string",
-      post: "string2"
-      ]
-    }
-  ] */
-
-/* const btnPost = timeLineSection.querySelector("#btnPost");
-
-btnPost.addEventListener("click", () => {
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      console.log("Estoy logueado");
-      const userNameContainer = timeLineSection.querySelector(".post-by");
-      userNameContainer.innerHTML = `publicado por ${user.displayName}`;
-    }
-  });
-});
-
-const postForm = timeLineSection.querySelector("#post");
-const postText = timeLineSection.querySelector(".post-text");
-
-const savePost = (inputPost) => {
-  db.collection("posts").doc().set({
-    inputPost: inputPost,
-  });
-};
-
-
-postForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const inputPost = postForm["postInput"];
-
-  await savePost(inputPost.value);
-
-  postForm.reset();
-}); */
