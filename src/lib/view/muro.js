@@ -53,7 +53,7 @@ export const createTimeLineView = () => {
     /* Crear los elementos de la publicación y agregar clase para estilos */
     const postContainer = document.createElement('div');
     postContainer.setAttribute('class', 'post-container');
-    postContainer.setAttribute('data-id', doc.id);
+    postContainer.setAttribute('data-id', doc.id); 
 
     const postBy = document.createElement('p');
     postBy.setAttribute('class', 'post-by');
@@ -64,6 +64,7 @@ export const createTimeLineView = () => {
     const buttons = document.createElement('div');
 
     const spanLike = document.createElement('span');
+    spanLike.setAttribute('data-id', doc.id); 
     const likeButton = `
       <button class="like-button" id="likeBtn">
         <img src="images/like.png" alt="me gusta">
@@ -72,6 +73,7 @@ export const createTimeLineView = () => {
     spanLike.innerHTML = likeButton;
 
     const spanEdit = document.createElement('span');
+    spanEdit.setAttribute('data-id', doc.id); 
     const editButton = `
       <button class="edit-button" id="editBtn">
          <img src="images/pencil.png" alt="editar">
@@ -81,6 +83,7 @@ export const createTimeLineView = () => {
     spanEdit.className = 'spanEdit';
 
     const spanDelete = document.createElement('span');
+    spanDelete.setAttribute('class', doc.id); 
     const deleteButton = `
       <button class="delete-button" id="deleteBtn">
         <img src="images/bin.png" alt="eliminar">
@@ -116,8 +119,27 @@ export const createTimeLineView = () => {
     });
   });
 
-  const editBtn = postSection.querySelector('.spanEdit');
-  console.log(editBtn);
+  // setTimeout(() => {
+  //   const editBtn = postSection.querySelectorAll('.spanEdit');
+  //   console.log(editBtn);
+  //   editBtn.forEach((btn) => {
+  //     btn.addEventListener('click',() => {
+        
+  //   })
+ 
+  //   })
+  
+  // },1500)
+  setTimeout(() => {
+    const deleteBtn = timeLineSection.querySelectorAll('.spanDelete');
+    console.log(deleteBtn);
+    deleteBtn.forEach((btn) => {
+      btn.addEventListener('click', (e) =>{
+      console.log(e.target)
+      })
+    })
+  },2000)
+ 
 
   /* Botón para que el usuario cierre sesión */
   const logOut = timeLineSection.querySelector('#logOut');
