@@ -227,10 +227,17 @@ p.or::before {
   padding: .5rem 1rem;
 }
 
-.edit-button img, .delete-button img,.like-button img{
-  width: 20px;
+/* Estilos botones de me gusta, editar y eliminar */
+
+.buttons-container {
+  display: flex;
 }
 
-.spanEdit, .spanDelete{
+.edit-button, .delete-button,.like-button{
+  width: 20px;
+  cursor: pointer;
+}
+
+.edit-button, .delete-button{
   display: none;
 }

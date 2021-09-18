@@ -28,15 +28,17 @@ export const savePost = (userName, postText, uId) => {
   });
 };
 
-export const editPost = (postId, newPost) => {
-  db.collection('posts').doc(postId).update(newPost);
-};
 
-export const getPosts = (callback) => db
-  .collection('posts')
+export const getPosts = (callback) => {
+  db.collection('posts')
   .orderBy('createdAt', 'desc')
   .onSnapshot(callback);
+};
 
-/* export const getPost = (idPost) => {
-  return db.collection('posts').get(idPost)
+export const deletePost = (postId) => {
+  db.collection('posts').doc(postId).delete(); 
+};
+
+/* export const editPost = (postId, newPost) => {
+  db.collection('posts').doc(postId).update(newPost);
 }; */

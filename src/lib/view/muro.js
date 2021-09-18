@@ -1,4 +1,4 @@
-import { savePost, getPosts, editPost, logOutUser } from '../index.js';
+import { savePost, getPosts, deletePost, logOutUser } from '../index.js';
 
 export const createTimeLineView = () => {
   const timeLineSection = document.createElement('section');
@@ -52,8 +52,7 @@ export const createTimeLineView = () => {
   const showPost = (doc) => {
     /* Crear los elementos de la publicación y agregar clase para estilos */
     const postContainer = document.createElement('div');
-    postContainer.setAttribute('class', 'post-container');
-    postContainer.setAttribute('data-id', doc.id); 
+    postContainer.setAttribute('class', 'post-container'); 
 
     const postBy = document.createElement('p');
     postBy.setAttribute('class', 'post-by');
@@ -61,54 +60,49 @@ export const createTimeLineView = () => {
     const postContent = document.createElement('p');
     postContent.setAttribute('class', 'post-content');
 
-    const buttons = document.createElement('div');
+    const btnsContainer = document.createElement('div');
+    btnsContainer.setAttribute('class', 'buttons-container');
+    btnsContainer.setAttribute('data-id', doc.id);
 
-    const spanLike = document.createElement('span');
-    spanLike.setAttribute('data-id', doc.id); 
-    const likeButton = `
-      <button class="like-button" id="likeBtn">
-        <img src="images/like.png" alt="me gusta">
-      </button>  
-    `;
-    spanLike.innerHTML = likeButton;
+    const likeBtn = document.createElement('img');
+    likeBtn.setAttribute('class', 'like-button');
+    likeBtn.setAttribute('src', 'images/like.png');
 
-    const spanEdit = document.createElement('span');
-    spanEdit.setAttribute('data-id', doc.id); 
-    const editButton = `
-      <button class="edit-button" id="editBtn">
-         <img src="images/pencil.png" alt="editar">
-      </button>
-    `;
-    spanEdit.innerHTML = editButton;
-    spanEdit.className = 'spanEdit';
+    const editBtn = document.createElement('img');
+    editBtn.setAttribute('class', 'edit-button');
+    editBtn.setAttribute('src', 'images/pencil.png');
 
-    const spanDelete = document.createElement('span');
-    spanDelete.setAttribute('class', doc.id); 
-    const deleteButton = `
-      <button class="delete-button" id="deleteBtn">
-        <img src="images/bin.png" alt="eliminar">
-      </button>
-    `;
-    spanDelete.innerHTML = deleteButton;
-    spanDelete.className = 'spanDelete';
+    const deleteBtn = document.createElement('img');
+    deleteBtn.setAttribute('class', 'delete-button');
+    deleteBtn.setAttribute('src', 'images/bin.png');
+
     /* Agregar el texto del nombre y la publicación a los elementos */
     postBy.textContent = `Publicado por ${doc.data().user}`;
     postContent.textContent = doc.data().userPost;
 
-    /* Agregar el nombre y texto al container y luego a la sección del DOM */
+    /* Agregar los elementos al container de la publicación individual y luego a la sección de publicaciones del DOM */
     postContainer.appendChild(postBy);
     postContainer.appendChild(postContent);
-    buttons.append(spanLike, spanEdit, spanDelete);
-    postContainer.appendChild(buttons);
+    btnsContainer.append(likeBtn, editBtn, deleteBtn);
+    postContainer.appendChild(btnsContainer);
+
     postSection.appendChild(postContainer);
 
+    /* Mostrar los botones de editar y borrar solo al usuario logueado */
     const currentUserId = firebase.auth().currentUser.uid;
     const userIdPost = doc.data().userId;
-
+    
     if (currentUserId === userIdPost) {
-      spanEdit.style.display = 'block';
-      spanDelete.style.display = 'block';
+      editBtn.style.display = 'block';
+      deleteBtn.style.display = 'block';
     }
+
+    /* Eliminar una publicación */
+    deleteBtn.addEventListener('click', (e) => {
+      const idPost = e.target.parentElement.getAttribute('data-id');
+      deletePost(idPost);
+    })
+    /* Fin de la función show post */
   };
 
   /* Obtener los post de la base de datos y mostrarlos en el dom */
@@ -118,28 +112,6 @@ export const createTimeLineView = () => {
       showPost(doc);
     });
   });
-
-  // setTimeout(() => {
-  //   const editBtn = postSection.querySelectorAll('.spanEdit');
-  //   console.log(editBtn);
-  //   editBtn.forEach((btn) => {
-  //     btn.addEventListener('click',() => {
-        
-  //   })
- 
-  //   })
-  
-  // },1500)
-  setTimeout(() => {
-    const deleteBtn = timeLineSection.querySelectorAll('.spanDelete');
-    console.log(deleteBtn);
-    deleteBtn.forEach((btn) => {
-      btn.addEventListener('click', (e) =>{
-      console.log(e.target)
-      })
-    })
-  },2000)
- 
 
   /* Botón para que el usuario cierre sesión */
   const logOut = timeLineSection.querySelector('#logOut');
