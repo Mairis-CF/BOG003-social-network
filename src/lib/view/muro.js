@@ -99,7 +99,7 @@ export const createTimeLineView = () => {
     const userIdPost = doc.data().userId;
 
     const likesPost = doc.data().likes;
-    console.log(likesPost);
+    // console.log(likesPost);
 
     /* cuando el usuario logueado realice una publicación, podrá ver los elementos de editar
    y eliminar */
@@ -124,7 +124,8 @@ export const createTimeLineView = () => {
     likeBtn.addEventListener('click', (e) => {
       console.log('hola');
       const likedPost = e.target.dataset.id;
-      liking(currentUserId, likedPost);
+      liking(currentUserId, likedPost)
+      .then(res => console.log(res.data()));
     });
     /* Eliminar una publicación */
     deleteBtn.addEventListener('click', (e) => {

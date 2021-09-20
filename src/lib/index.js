@@ -43,10 +43,9 @@ export const getPost = (postId) => {
   db.collection('posts').doc(postId).get();
 };
 
-export const liking = (uId, postId) => 
- return db.collection('posts').doc(postId).update(({
-    likes: db.FieldValue.arrayUnion(uId),
-  }));
+export const liking = (uId, postId) => db.collection('posts').doc(postId).update({
+    likes: firebase.firestore.FieldValue.arrayUnion(uId),
+  });
 
 
 export const unLike = (uId, postId) => {
