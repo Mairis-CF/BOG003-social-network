@@ -100,8 +100,6 @@ export const createTimeLineView = () => {
     const currentUserId = firebase.auth().currentUser.uid;
     const userIdPost = doc.data().userId;
 
-    const likesPost = doc.data().likes;
-    // console.log(likesPost);
 
     /* cuando el usuario logueado realice una publicación, podrá ver los elementos de editar
    y eliminar */
@@ -110,29 +108,20 @@ export const createTimeLineView = () => {
       deleteBtn.style.display = 'block';
     }
 
-    /* si la acción de like coincide con la credencial del usuario, se mostrará el mismo elemento
-    de like al usuario */
-    /*
-      const likedPost = e.target.parentElement.getAttribute('data-id');
-      const likesByPost = doc(likedPost).data().likes;
-
-      if (likesByPost.includes(currentUserId)) {
-        unLike(currentUserId, e.target.dataset.id);
-      } else {
-        liking(currentUserId, e.target.dataset.id);
-      }
- */
 
     likeBtn.addEventListener('click', (e) => {
       console.log('hola');
       const likedPost = e.target.dataset.id;
       const likesByPost = doc.data().likes;
+
       if (likesByPost.includes(currentUserId)) {
-        unLike(currentUserId, likedPost);
+        unLike(currentUserId, likedPost)
+          .then()
+          .catch((error) => console.log(error));
       } else {
         liking(currentUserId, likedPost)
           .then()
-          .catch(console.log('no pudo ser lo nuestro'));
+          .catch((error) => console.log(error));
       }
     });
     /* Eliminar una publicación */
