@@ -153,6 +153,8 @@ export const createTimeLineView = () => {
     logOutUser()
       .then(() => {
         window.location.hash = '#/ingreso';
+
+
       })
       .catch((error) => {
         console.log(error);
