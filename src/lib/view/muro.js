@@ -1,4 +1,6 @@
-import { savePost, getPosts, deletePost, logOutUser, liking, unLike } from '../index.js';
+import {
+  savePost, getPosts, deletePost, logOutUser, liking, unLike,
+} from '../index.js';
 
 export const createTimeLineView = () => {
   const timeLineSection = document.createElement('section');
@@ -110,7 +112,7 @@ export const createTimeLineView = () => {
 
     /* si la acción de like coincide con la credencial del usuario, se mostrará el mismo elemento
     de like al usuario */
-/*
+    /*
       const likedPost = e.target.parentElement.getAttribute('data-id');
       const likesByPost = doc(likedPost).data().likes;
 
@@ -124,8 +126,14 @@ export const createTimeLineView = () => {
     likeBtn.addEventListener('click', (e) => {
       console.log('hola');
       const likedPost = e.target.dataset.id;
-      liking(currentUserId, likedPost)
-      .then(res => console.log(res.data()));
+      const likesByPost = doc.data().likes;
+      if (likesByPost.includes(currentUserId)) {
+        unLike(currentUserId, likedPost);
+      } else {
+        liking(currentUserId, likedPost)
+          .then()
+          .catch(console.log('no pudo ser lo nuestro'));
+      }
     });
     /* Eliminar una publicación */
     deleteBtn.addEventListener('click', (e) => {

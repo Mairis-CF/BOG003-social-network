@@ -44,16 +44,12 @@ export const getPost = (postId) => {
 };
 
 export const liking = (uId, postId) => db.collection('posts').doc(postId).update({
-    likes: firebase.firestore.FieldValue.arrayUnion(uId),
-  });
+  likes: firebase.firestore.FieldValue.arrayUnion(uId),
+});
 
-
-export const unLike = (uId, postId) => {
-  db.collection('posts').doc(postId).update(({
-    likes: db.FieldValue.arrayRemove(uId),
-  }));
-};
-
+export const unLike = (uId, postId) => db.collection('posts').doc(postId).update({
+  likes: firebase.firestore.FieldValue.arrayRemove(uId),
+});
 /* export const editPost = (postId, newPost) => {
   db.collection('posts').doc(postId).update(newPost);
 }; */
