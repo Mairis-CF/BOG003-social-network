@@ -81,13 +81,12 @@ export const createTimeLineView = () => {
 
     const likeCount = document.createElement('p');
     likeCount.setAttribute('class', 'likesCounter');
-        
+
     /* Agregar el texto del nombre y la publicación a los elementos */
     postBy.textContent = `Publicado por ${doc.data().user}`;
     postContent.textContent = doc.data().userPost;
     likeCount.textContent = doc.data().likes.length;
 
-    
     /* Agregar los elementos al container de la publicación individual y luego
     a la sección de publicaciones del DOM */
     postContainer.appendChild(postBy);
@@ -95,41 +94,40 @@ export const createTimeLineView = () => {
     btnsContainer.append(likeBtn, likeCount, editBtn, deleteBtn);
     postContainer.appendChild(btnsContainer);
     postSection.appendChild(postContainer);
-    
+
     /* Mostrar los botones de editar y borrar solo al usuario logueado */
     const currentUserId = firebase.auth().currentUser.uid;
     const userIdPost = doc.data().userId;
-    
-    
+
     /* cuando el usuario logueado realice una publicación, podrá ver los elementos de editar
     y eliminar */
     if (currentUserId === userIdPost) {
       editBtn.style.display = 'block';
       deleteBtn.style.display = 'block';
     }
-    
+
     /* Función para el conteo de los likes (uno por persona) */
     likeBtn.addEventListener('click', (e) => {
       const likedPost = e.target.dataset.id;
       const likesByPost = doc.data().likes;
-      
+
       if (likesByPost.includes(currentUserId)) {
         removeLike(currentUserId, likedPost)
-        .catch((error) => console.log(error));
+          .catch((error) => console.log(error));
       } else {
         addLike(currentUserId, likedPost)
-        .catch((error) => console.log(error));
+          .catch((error) => console.log(error));
       }
     });
-    
-    //Mostrar el conteo de like sólo cuando tenga más de un like
-    if (doc.data().likes.length == 0){
+
+    // Mostrar el conteo de like sólo cuando tenga más de un like
+    if (doc.data().likes.length == 0) {
       likeCount.style.display = 'none';
     } else {
-        likeCount.style.display = 'block';
+      likeCount.style.display = 'block';
     }
 
-        /* Eliminar una publicación */
+    /* Eliminar una publicación */
     deleteBtn.addEventListener('click', (e) => {
       const idPost = e.target.parentElement.getAttribute('data-id');
       deletePost(idPost);
@@ -153,8 +151,6 @@ export const createTimeLineView = () => {
     logOutUser()
       .then(() => {
         window.location.hash = '#/ingreso';
-
-
       })
       .catch((error) => {
         console.log(error);
