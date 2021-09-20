@@ -18,7 +18,7 @@ export const createTimeLineView = () => {
     </header>
 
     <form id="postForm">
-      <textarea id="postBox" name="post" placeholder="Comparte tu experiencia..."></textarea>
+      <textarea class="formulario" id="postBox" name="post" placeholder="Comparte tu experiencia..."></textarea>
       <button type="submit" id="btnPost">Publicar</button>
     </form>
 
@@ -52,7 +52,7 @@ export const createTimeLineView = () => {
   const showPost = (doc) => {
     /* Crear los elementos de la publicación y agregar clase para estilos */
     const postContainer = document.createElement('div');
-    postContainer.setAttribute('class', 'post-container'); 
+    postContainer.setAttribute('class', 'post-container');
 
     const postBy = document.createElement('p');
     postBy.setAttribute('class', 'post-by');
@@ -67,6 +67,7 @@ export const createTimeLineView = () => {
     const likeBtn = document.createElement('img');
     likeBtn.setAttribute('class', 'like-button');
     likeBtn.setAttribute('src', 'images/like.png');
+    likeBtn.setAttribute('data-id', doc.id);
 
     const editBtn = document.createElement('img');
     editBtn.setAttribute('class', 'edit-button');
@@ -76,32 +77,52 @@ export const createTimeLineView = () => {
     deleteBtn.setAttribute('class', 'delete-button');
     deleteBtn.setAttribute('src', 'images/bin.png');
 
+    const likeCount = document.createElement('p');
+    likeCount.setAttribute('class', 'likesCounter');
+
     /* Agregar el texto del nombre y la publicación a los elementos */
     postBy.textContent = `Publicado por ${doc.data().user}`;
     postContent.textContent = doc.data().userPost;
+    // likeCount.textContent = `Likes:${doc.data().likes.length}`;
 
-    /* Agregar los elementos al container de la publicación individual y luego a la sección de publicaciones del DOM */
+    /* Agregar los elementos al container de la publicación individual y luego
+     a la sección de publicaciones del DOM */
     postContainer.appendChild(postBy);
     postContainer.appendChild(postContent);
     btnsContainer.append(likeBtn, editBtn, deleteBtn);
     postContainer.appendChild(btnsContainer);
-
+    postContainer.appendChild(likeCount);
     postSection.appendChild(postContainer);
 
     /* Mostrar los botones de editar y borrar solo al usuario logueado */
     const currentUserId = firebase.auth().currentUser.uid;
     const userIdPost = doc.data().userId;
-    
+
+    /* cuando el usuario logueado realice una publicación, podrá ver los elementos de editar
+   y eliminar */
     if (currentUserId === userIdPost) {
       editBtn.style.display = 'block';
       deleteBtn.style.display = 'block';
     }
 
+    /* si la acción de like coincide con la credencial del usuario, se mostrará el mismo elemento
+    de like al usuario */
+/*
+      const likedPost = e.target.parentElement.getAttribute('data-id');
+      const likesByPost = doc(likedPost).data().likes;
+
+ */
+
+    // likeBtn.addEventListener('click', (e) => {
+    //   const likedPost = e.target.dataset.id;
+    //   liking(currentUserId, likedPost)
+    //   .then();
+    // });
     /* Eliminar una publicación */
     deleteBtn.addEventListener('click', (e) => {
       const idPost = e.target.parentElement.getAttribute('data-id');
       deletePost(idPost);
-    })
+    });
     /* Fin de la función show post */
   };
 

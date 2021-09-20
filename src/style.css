@@ -105,7 +105,7 @@ form button {
   transition: all 0.5s;
   font-weight: bold;
   font-size: 18px;
-  width: 113%;
+  width: 70%;
 }
 
 form button:hover {
@@ -187,6 +187,8 @@ p.or::before {
   grid-template-rows: 2fr;
   grid-column-gap: 10px;
   grid-row-gap: 0px;
+  position: relative;
+  padding-top: 10rem;
 }
 main#main-section {
   background-size: contain;
@@ -199,7 +201,9 @@ main#main-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  position: absolute;
+  width: 100%;
+  top: 0;
 }
 
 .user-name {
@@ -223,8 +227,8 @@ main#main-section {
   grid-area: 1 / 1 / 2 / 2;
   position: relative;
 }
-.formulario textarea {
-  width: 100%;
+#postBox {
+  width: 60%;
   margin-bottom: 1rem;
   background-color: #333333;
   border-radius: 10px;
@@ -242,7 +246,7 @@ main#main-section {
 /* Sección de publicaciones */
 .post-section {
   grid-area: 1 / 2 / 2 / 3;
-  width: 60%;
+  width: 80%;
   margin: 0 auto;
 }
 
