@@ -1,5 +1,5 @@
 import {
-  savePost, getPosts, deletePost, logOutUser, liking, unLike,
+  savePost, getPosts, deletePost, logOutUser, addLike, removeLike,
 } from '../index.js';
 
 export const createTimeLineView = () => {
@@ -81,54 +81,60 @@ export const createTimeLineView = () => {
 
     const likeCount = document.createElement('p');
     likeCount.setAttribute('class', 'likesCounter');
-
+        
     /* Agregar el texto del nombre y la publicación a los elementos */
     postBy.textContent = `Publicado por ${doc.data().user}`;
     postContent.textContent = doc.data().userPost;
-    likeCount.textContent = `Likes:${doc.data().likes.length}`;
+    likeCount.textContent = doc.data().likes.length;
 
+    
     /* Agregar los elementos al container de la publicación individual y luego
-     a la sección de publicaciones del DOM */
+    a la sección de publicaciones del DOM */
     postContainer.appendChild(postBy);
     postContainer.appendChild(postContent);
-    btnsContainer.append(likeBtn, editBtn, deleteBtn);
+    btnsContainer.append(likeBtn, likeCount, editBtn, deleteBtn);
     postContainer.appendChild(btnsContainer);
-    postContainer.appendChild(likeCount);
     postSection.appendChild(postContainer);
-
+    
     /* Mostrar los botones de editar y borrar solo al usuario logueado */
     const currentUserId = firebase.auth().currentUser.uid;
     const userIdPost = doc.data().userId;
-
-
+    
+    
     /* cuando el usuario logueado realice una publicación, podrá ver los elementos de editar
-   y eliminar */
+    y eliminar */
     if (currentUserId === userIdPost) {
       editBtn.style.display = 'block';
       deleteBtn.style.display = 'block';
     }
-
-
+    
+    /* Función para el conteo de los likes (uno por persona) */
     likeBtn.addEventListener('click', (e) => {
-      console.log('hola');
       const likedPost = e.target.dataset.id;
       const likesByPost = doc.data().likes;
-
+      
       if (likesByPost.includes(currentUserId)) {
-        unLike(currentUserId, likedPost)
-          .then()
-          .catch((error) => console.log(error));
+        removeLike(currentUserId, likedPost)
+        .catch((error) => console.log(error));
       } else {
-        liking(currentUserId, likedPost)
-          .then()
-          .catch((error) => console.log(error));
+        addLike(currentUserId, likedPost)
+        .catch((error) => console.log(error));
       }
     });
-    /* Eliminar una publicación */
+    
+    //Mostrar el conteo de like sólo cuando tenga más de un like
+    if (doc.data().likes.length == 0){
+      likeCount.style.display = 'none';
+    } else {
+        likeCount.style.display = 'block';
+    }
+
+        /* Eliminar una publicación */
     deleteBtn.addEventListener('click', (e) => {
       const idPost = e.target.parentElement.getAttribute('data-id');
       deletePost(idPost);
     });
+
     /* Fin de la función show post */
   };
 
