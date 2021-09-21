@@ -52,6 +52,10 @@ Los prototipos de alta fidelidad fueron realizados en Figma. Este es el prototip
 
 ![Prototipo mobile de baja fidelidad](src/images/prototipos/mobile-alta.png)
 
+___
+
+# Instrucciones de desarrollo dadas por Laboratoria
+
 # Creando una Red Social
 
 ## Índice
