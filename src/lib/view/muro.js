@@ -20,7 +20,7 @@ export const createTimeLineView = () => {
     </header>
     <form id="postForm">
       <textarea id="postBox" name="post" placeholder="Comparte tu experiencia..."></textarea>
-      <button type="submit" id="btnPost">Publicar</button>
+      <button type="submit" id="btnPost" disabled>Publicar</button>
     </form>
     <section class="post-section" id="postSection"></section>
   `;
@@ -36,16 +36,25 @@ export const createTimeLineView = () => {
 
   /* Guardar el post en la base de datos */
   const postForm = timeLineSection.querySelector('#postForm');
+  const postBox = timeLineSection.querySelector('#postBox');
+  const btnPost = timeLineSection.querySelector('#btnPost');
+  
+  postBox.addEventListener('keyup', () => {
+    btnPost.removeAttribute('disabled')
+  }) 
 
   postForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const userName = firebase.auth().currentUser.displayName;
     const postText = postForm.post.value;
     const userId = firebase.auth().currentUser.uid;
+    
+          
     savePost(userName, postText, userId);
     postForm.reset();
+    btnPost.setAttribute('disabled', 'disabled');
   });
-
+  
   /* Crear e insertar los elementos de un post en el DOM */
   const postSection = timeLineSection.querySelector('#postSection');
 
