@@ -69,11 +69,11 @@ body {
   text-align: center;
 }
 
-form {
+/* form {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
 form input {
   display: block;
@@ -97,7 +97,6 @@ form button {
   color: var(--white-code);
   margin-bottom: 2rem;
   display: block;
-  width: 150px;
   height: 40px;
   border-radius: 10px;
   box-shadow: 4px 4px 4px 0px var(--violet-code);
@@ -106,6 +105,7 @@ form button {
   transition: all 0.5s;
   font-weight: bold;
   font-size: 18px;
+  width: 70%;
 }
 
 form button:hover {
@@ -182,12 +182,30 @@ p.or::before {
 /* Header */
 .muro-section {
   padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-rows: 2fr;
+  grid-column-gap: 10px;
+  grid-row-gap: 0px;
+  position: relative;
+  padding-top: 10rem;
+}
+main#main-section {
+  background-size: contain;
+  background-image: url(images/onda.png);
+  background-repeat: no-repeat;
+  background-position: bottom;
 }
 
 .header-muro {
   display: flex;
   align-items: center;
   justify-content: space-between;
+<<<<<<< HEAD
+=======
+  position: absolute;
+  width: 100%;
+>>>>>>> estilos
   top: 0;
 }
 
@@ -208,10 +226,31 @@ p.or::before {
 .logo-long {
   display: none;
 }
+.formulario{
+  grid-area: 1 / 1 / 2 / 2;
+  position: relative;
+}
+#postBox {
+  width: 60%;
+  margin-bottom: 1rem;
+  background-color: #333333;
+  border-radius: 10px;
+  color: #ffffff;
+  border: 2px solid #8803d2;
+  font-family: 'Roboto';
+  padding: 1rem;
+}
+#postForm{
+  position:sticky;
+  top: 10%;
+}
+
 
 /* Sección de publicaciones */
 .post-section {
-  width: 70%;
+  grid-area: 1 / 2 / 2 / 3;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .post-container {
@@ -232,6 +271,11 @@ p.or::before {
 
 .buttons-container {
   display: flex;
+  background-color: #8803d2;
+  padding: .5rem;
+}
+.buttons-container .left{
+
 }
 
 .edit-button, .delete-button,.like-button{
