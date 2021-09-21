@@ -288,6 +288,7 @@ p.or::before {
 .edit-button, .delete-button{
   display: none;
 }
+
 p.likesCounter {
   padding-right: 5px;
   padding-left: 5px;
