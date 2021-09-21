@@ -18,12 +18,10 @@ export const createTimeLineView = () => {
         <img src="images/log-out1.png" alt="Log Out">
       </button>
     </header>
-
     <form id="postForm">
       <textarea id="postBox" name="post" placeholder="Comparte tu experiencia..."></textarea>
       <button type="submit" id="btnPost">Publicar</button>
     </form>
-
     <section class="post-section" id="postSection"></section>
   `;
   timeLineSection.innerHTML = timeLineView;
