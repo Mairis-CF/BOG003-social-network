@@ -25,19 +25,31 @@ export const savePost = (userName, postText, uId) => {
     userPost: postText,
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     userId: uId,
+    likes: [],
   });
 };
 
-
 export const getPosts = (callback) => {
   db.collection('posts')
-  .orderBy('createdAt', 'desc')
-  .onSnapshot(callback);
+    .orderBy('createdAt', 'desc')
+    .onSnapshot(callback);
 };
 
 export const deletePost = (postId) => {
-  db.collection('posts').doc(postId).delete(); 
+  db.collection('posts').doc(postId).delete();
 };
+
+export const getPost = (postId) => {
+  db.collection('posts').doc(postId).get();
+};
+
+export const addLike = (uId, postId) => db.collection('posts').doc(postId).update({
+  likes: firebase.firestore.FieldValue.arrayUnion(uId),
+});
+
+export const removeLike = (uId, postId) => db.collection('posts').doc(postId).update({
+  likes: firebase.firestore.FieldValue.arrayRemove(uId),
+});
 
 /* export const editPost = (postId, newPost) => {
   db.collection('posts').doc(postId).update(newPost);

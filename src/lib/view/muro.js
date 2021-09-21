@@ -1,4 +1,6 @@
-import { savePost, getPosts, deletePost, logOutUser } from '../index.js';
+import {
+  savePost, getPosts, deletePost, logOutUser, addLike, removeLike,
+} from '../index.js';
 
 export const createTimeLineView = () => {
   const timeLineSection = document.createElement('section');
@@ -16,12 +18,10 @@ export const createTimeLineView = () => {
         <img src="images/log-out1.png" alt="Log Out">
       </button>
     </header>
-
     <form id="postForm">
-      <textarea class="formulario" id="postBox" name="post" placeholder="Comparte tu experiencia..."></textarea>
+      <textarea id="postBox" name="post" placeholder="Comparte tu experiencia..."></textarea>
       <button type="submit" id="btnPost">Publicar</button>
     </form>
-
     <section class="post-section" id="postSection"></section>
   `;
   timeLineSection.innerHTML = timeLineView;
@@ -83,15 +83,14 @@ export const createTimeLineView = () => {
     /* Agregar el texto del nombre y la publicación a los elementos */
     postBy.textContent = `Publicado por ${doc.data().user}`;
     postContent.textContent = doc.data().userPost;
-    // likeCount.textContent = `Likes:${doc.data().likes.length}`;
+    likeCount.textContent = doc.data().likes.length;
 
     /* Agregar los elementos al container de la publicación individual y luego
-     a la sección de publicaciones del DOM */
+    a la sección de publicaciones del DOM */
     postContainer.appendChild(postBy);
     postContainer.appendChild(postContent);
-    btnsContainer.append(likeBtn, editBtn, deleteBtn);
+    btnsContainer.append(likeBtn, likeCount, editBtn, deleteBtn);
     postContainer.appendChild(btnsContainer);
-    postContainer.appendChild(likeCount);
     postSection.appendChild(postContainer);
 
     /* Mostrar los botones de editar y borrar solo al usuario logueado */
@@ -99,30 +98,39 @@ export const createTimeLineView = () => {
     const userIdPost = doc.data().userId;
 
     /* cuando el usuario logueado realice una publicación, podrá ver los elementos de editar
-   y eliminar */
+    y eliminar */
     if (currentUserId === userIdPost) {
       editBtn.style.display = 'block';
       deleteBtn.style.display = 'block';
     }
 
-    /* si la acción de like coincide con la credencial del usuario, se mostrará el mismo elemento
-    de like al usuario */
-/*
-      const likedPost = e.target.parentElement.getAttribute('data-id');
-      const likesByPost = doc(likedPost).data().likes;
+    /* Función para el conteo de los likes (uno por persona) */
+    likeBtn.addEventListener('click', (e) => {
+      const likedPost = e.target.dataset.id;
+      const likesByPost = doc.data().likes;
 
- */
+      if (likesByPost.includes(currentUserId)) {
+        removeLike(currentUserId, likedPost)
+          .catch((error) => console.log(error));
+      } else {
+        addLike(currentUserId, likedPost)
+          .catch((error) => console.log(error));
+      }
+    });
 
-    // likeBtn.addEventListener('click', (e) => {
-    //   const likedPost = e.target.dataset.id;
-    //   liking(currentUserId, likedPost)
-    //   .then();
-    // });
+    // Mostrar el conteo de like sólo cuando tenga más de un like
+    if (doc.data().likes.length == 0) {
+      likeCount.style.display = 'none';
+    } else {
+      likeCount.style.display = 'block';
+    }
+
     /* Eliminar una publicación */
     deleteBtn.addEventListener('click', (e) => {
       const idPost = e.target.parentElement.getAttribute('data-id');
       deletePost(idPost);
     });
+
     /* Fin de la función show post */
   };
 
