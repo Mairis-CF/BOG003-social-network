@@ -20,8 +20,8 @@ export const createTimeLineView = () => {
     </header>
     <div id="modalDiv" class="modal-confirm">
         <p>¿Seguro que quieres eliminar esta publicación?</p>
-        <button id="deleteConfirm" class="delete-confirm">Eliminar</button>
-        <button id="cancelDelete" class="cancel-delete">Cancelar</button>
+        <button class="delete-confirm">Eliminar</button>
+        <button class="cancel-delete">Cancelar</button>
     </div>
     <form id="postForm">
       <textarea id="postBox" name="post" placeholder="Comparte tu experiencia..."></textarea>
@@ -62,8 +62,7 @@ export const createTimeLineView = () => {
   
   /* Crear e insertar los elementos de un post en el DOM */
   const postSection = timeLineSection.querySelector('#postSection');
-  const modalDiv = timeLineSection.querySelector('#modalDiv');
-
+  
   const showPost = (doc) => {
     /* Crear los elementos de la publicación y agregar clase para estilos */
     const postContainer = document.createElement('div');
@@ -140,22 +139,26 @@ export const createTimeLineView = () => {
       likeCount.style.display = 'block';
     }
 
-    
     /* Mostrar ventana modal */
     deleteBtn.addEventListener('click', (e) => {
+      const idPost = e.target.parentElement.getAttribute('data-id');
       modalDiv.style.display = 'block';
+      modalDiv.setAttribute('data-id', idPost);
     });
     
     /* Fin de la función show post */
   }; 
 
   /* Eliminar publicación */
+  const modalDiv = timeLineSection.querySelector('#modalDiv');
   const confirmDelete = (e) => {
     if(e.target.className === 'delete-confirm'){
-      console.log('borré el mensaje');
       const idPost = e.target.parentElement.getAttribute('data-id');
       deletePost(idPost);
+      modalDiv.removeAttribute('data-id');
+      modalDiv.style.display = 'none';
     }else if(e.target.className === 'cancel-delete'){
+      modalDiv.removeAttribute('data-id');
       modalDiv.style.display = 'none';
     }
   };
