@@ -35,10 +35,6 @@ body {
   width: 180px;
 }
 
-.logo-long img {
-  width: 180px;
-}
-
 .Google-login img {
   width: 40px;
   text-align: center;
@@ -68,12 +64,6 @@ body {
   margin-bottom: 2.5rem;
   text-align: center;
 }
-
-/* form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-} */
 
 form input {
   display: block;
@@ -105,7 +95,7 @@ form button {
   transition: all 0.5s;
   font-weight: bold;
   font-size: 18px;
-  width: 70%;
+  width: 90%;
 }
 
 form button:hover {
@@ -188,9 +178,7 @@ p.or::before {
   grid-column-gap: 10px;
   grid-row-gap: 0px;
   position: relative;
-  padding-top: 10rem;
-}
-main#main-section {
+  padding-top: 13rem;
   background-size: contain;
   background-image: url(images/onda.png);
   background-repeat: no-repeat;
@@ -204,10 +192,12 @@ main#main-section {
   position: absolute;
   width: 100%;
   top: 0;
+  border-bottom: 2px solid #8803d2;
 }
 
 .user-name {
   font-size: 1.5rem;
+  margin-left: 20px;
 }
 
 .log-out {
@@ -266,20 +256,43 @@ main#main-section {
 
 /* Estilos botones de me gusta, editar y eliminar */
 
+#btnPost{
+  background-color: var(--violet-code);
+  color: var(--white-code);
+  margin-bottom: 2rem;
+  display: block;
+  height: 40px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 4px 0px var(--violet-code);
+  border: 2px solid #a54bd7;
+  cursor: pointer;
+  transition: all 0.5s;
+  font-weight: bold;
+  font-size: 18px;
+  width: 70%;
+
+}
+
 .buttons-container {
   display: flex;
   background-color: #8803d2;
   padding: .5rem;
 }
-.buttons-container .left{
-
-}
 
 .edit-button, .delete-button,.like-button{
   width: 20px;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .edit-button, .delete-button{
   display: none;
 }
+p.likesCounter {
+  padding-right: 5px;
+  padding-left: 5px;
+  border: 1px solid;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
