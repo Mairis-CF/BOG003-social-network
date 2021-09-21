@@ -38,23 +38,22 @@ export const createTimeLineView = () => {
   const postForm = timeLineSection.querySelector('#postForm');
   const postBox = timeLineSection.querySelector('#postBox');
   const btnPost = timeLineSection.querySelector('#btnPost');
-  
+
   postBox.addEventListener('keyup', () => {
-    btnPost.removeAttribute('disabled')
-  }) 
+    btnPost.removeAttribute('disabled');
+  });
 
   postForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const userName = firebase.auth().currentUser.displayName;
     const postText = postForm.post.value;
     const userId = firebase.auth().currentUser.uid;
-    
-          
+
     savePost(userName, postText, userId);
     postForm.reset();
     btnPost.setAttribute('disabled', 'disabled');
   });
-  
+
   /* Crear e insertar los elementos de un post en el DOM */
   const postSection = timeLineSection.querySelector('#postSection');
 
@@ -128,7 +127,7 @@ export const createTimeLineView = () => {
     });
 
     // Mostrar el conteo de like sólo cuando tenga más de un like
-    if (doc.data().likes.length == 0) {
+    if (doc.data().likes.length === 0) {
       likeCount.style.display = 'none';
     } else {
       likeCount.style.display = 'block';
