@@ -18,6 +18,11 @@ export const createTimeLineView = () => {
         <img src="images/log-out1.png" alt="Log Out">
       </button>
     </header>
+    <div id="modalDiv" class="modal-confirm">
+        <p>¿Seguro que quieres eliminar esta publicación?</p>
+        <button id="deleteConfirm" class="delete-confirm">Eliminar</button>
+        <button id="cancelDelete" class="cancel-delete">Cancelar</button>
+    </div>
     <form id="postForm">
       <textarea id="postBox" name="post" placeholder="Comparte tu experiencia..."></textarea>
       <button type="submit" id="btnPost" disabled>Publicar</button>
@@ -57,6 +62,7 @@ export const createTimeLineView = () => {
   
   /* Crear e insertar los elementos de un post en el DOM */
   const postSection = timeLineSection.querySelector('#postSection');
+  const modalDiv = timeLineSection.querySelector('#modalDiv');
 
   const showPost = (doc) => {
     /* Crear los elementos de la publicación y agregar clase para estilos */
@@ -100,7 +106,7 @@ export const createTimeLineView = () => {
     postContainer.appendChild(postContent);
     btnsContainer.append(likeBtn, likeCount, editBtn, deleteBtn);
     postContainer.appendChild(btnsContainer);
-    postSection.appendChild(postContainer);
+    postSection.append(postContainer);
 
     /* Mostrar los botones de editar y borrar solo al usuario logueado */
     const currentUserId = firebase.auth().currentUser.uid;
@@ -134,15 +140,27 @@ export const createTimeLineView = () => {
       likeCount.style.display = 'block';
     }
 
-    /* Eliminar una publicación */
+    
+    /* Mostrar ventana modal */
     deleteBtn.addEventListener('click', (e) => {
+      modalDiv.style.display = 'block';
+    });
+    
+    /* Fin de la función show post */
+  }; 
+
+  /* Eliminar publicación */
+  const confirmDelete = (e) => {
+    if(e.target.className === 'delete-confirm'){
+      console.log('borré el mensaje');
       const idPost = e.target.parentElement.getAttribute('data-id');
       deletePost(idPost);
-    });
-
-    /* Fin de la función show post */
+    }else if(e.target.className === 'cancel-delete'){
+      modalDiv.style.display = 'none';
+    }
   };
-
+  modalDiv.addEventListener('click', confirmDelete);  
+  
   /* Obtener los post de la base de datos y mostrarlos en el dom */
   getPosts((snapshot) => {
     postSection.innerHTML = '';

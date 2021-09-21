@@ -283,3 +283,7 @@ main#main-section {
 .edit-button, .delete-button{
   display: none;
 }
+
+.modal-confirm {
+  display: none;
+}
