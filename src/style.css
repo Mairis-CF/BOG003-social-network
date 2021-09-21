@@ -296,3 +296,8 @@ p.likesCounter {
   margin-right: 5px;
 }
 
+/* estilos ventana modal */
+
+.modal-confirm {
+  display: none;
+}
