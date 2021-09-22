@@ -11,7 +11,8 @@
     display: none;
   }
 
-  .login-section, .register-section {
+  .login-section,
+  .register-section {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -39,29 +40,42 @@
 }
 
 @media (max-width: 767px) {
-  .muro-section{
-    display:block;
+  .muro-section {
+    display: block;
   }
-  #postBox{
+  #postBox {
     display: block;
     width: 88%;
   }
-  #btnPost{
+  #btnPost {
     width: 100%;
   }
-  #postForm{
+  #postForm {
     margin-bottom: 3rem;
     border-bottom: 2px solid #8803d2;
-    position: relative
+    position: relative;
   }
   .user-name {
     font-size: 1.1rem;
-}
-.header-muro {
-  width: 83%;
-  border-bottom: 2px solid #8803d2;
-}
-.logo-short {
-  margin-right: 15px;
-}
+    margin-left: 2px;
+    padding: 5px;
+  }
+  .header-muro {
+    width: 83%;
+    border-bottom: 2px solid #8803d2;
+  }
+  .logo-short {
+    margin-right: 15px;
+  }
+
+  .muro-section {
+    padding-top: 9rem;
+  }
+
+  .modal-confirm {
+    width: 250px;
+    top: 20%;
+    right: 0;
+    left: 15%;
+  }
 }
