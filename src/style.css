@@ -349,3 +349,9 @@ button.delete-confirm {
 .hideBtn {
   display: none;
 }
+
+/* modal editar */
+
+.container-edit {
+display: none;
+}
