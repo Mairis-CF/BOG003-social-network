@@ -302,3 +302,7 @@ p.likesCounter {
 .modal-confirm {
   display: none;
 }
+
+.hideBtn {
+  display: none;
+}

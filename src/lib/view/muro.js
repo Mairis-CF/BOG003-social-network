@@ -26,6 +26,7 @@ export const createTimeLineView = () => {
     <form id="postForm">
       <textarea id="postBox" name="post" placeholder="Comparte tu experiencia..."></textarea>
       <button type="submit" id="btnPost" disabled>Publicar</button>
+      <button id="btnSave">Guardar</button>
     </form>
     <section class="post-section" id="postSection"></section>
   `;
@@ -62,6 +63,8 @@ export const createTimeLineView = () => {
   
   /* Crear e insertar los elementos de un post en el DOM */
   const postSection = timeLineSection.querySelector('#postSection');
+  const btnSave = timeLineSection.querySelector('#btnSave');
+  btnSave.setAttribute('class', 'hideBtn');
   
   const showPost = (doc) => {
     /* Crear los elementos de la publicación y agregar clase para estilos */
@@ -139,7 +142,33 @@ export const createTimeLineView = () => {
       likeCount.style.display = 'block';
     }
 
-    /* Mostrar ventana modal */
+    const hideBtn = (btn) => btn.setAttribute('class', 'hideBtn');
+    const showBtn = (btn) => btn.removeAttribute('class', 'hideBtn');
+
+    // editar una publicación
+    editBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      // mostrar botón de guardar y ocultar de publicar
+      showBtn(btnSave);
+      hideBtn(btnPost);
+      const idPost = e.target.dataset.id;
+      const userPost = doc.data().userPost;
+      postBox.value = userPost;
+
+      // ejecutando boton guardar post editado
+      btnSave.addEventListener('click', (e) => {
+        e.preventDefault();
+        const newText = postBox.value;
+        updatePost(idPost, newText)
+        postContent.textContent = doc.data().userPost;
+        
+        /* postBox.value = ''; */
+        showBtn(btnPost);
+        hideBtn(btnSave);
+      });
+    });
+
+    /* Mostrar ventana modal de confirmación borrar*/
     deleteBtn.addEventListener('click', (e) => {
       const idPost = e.target.parentElement.getAttribute('data-id');
       modalDiv.style.display = 'block';
