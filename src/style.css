@@ -345,3 +345,7 @@ button.delete-confirm {
   width: 30%;
   margin: 20px;
 }
+
+.hideBtn {
+  display: none;
+}

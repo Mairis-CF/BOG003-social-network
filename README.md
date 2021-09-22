@@ -1,3 +1,61 @@
+# Proyecto 3, Bootcamp de Laboratoria
+
+![Behind Code logo](src/images/logo_long.png)
+
+# Social Network - BEHIND CODE
+
+## Definición de producto
+
+**Behind Code** es una red social que nace de la necesidad de generar un espacio en el que desarrolladores web puedan expresar por medio de publicaciones los aciertos y desaciertos emocionales que experimentan en el día a día de esta profesión. 
+
+En esta red social desarrolladores podrán compartir sus experiencias de manera escrita además de editar y borrar sus publicaciones. Además de esto, pueden reaccionar a otras publicaciones por medio de un me gusta.
+
+Los principales usuarios de nuestro producto son los desarrolladores web de cualquier nivel y experiencia. Esta red social les ofrece un espacio para que puedan compartir sobre la otra cara del código, aquella que se aleja de la parte técnica y permite explorar la parte humana de la industria tech.
+
+## Investigación UX
+
+Para conocer mejor a nuestros potenciales usuarios realizamos 4 entrevistas a desarrolladores web de diferentes especialidades y años de experiencia. 
+
+Todos coincidieron en que hay varios espacios en internet en los que se pueden compartir conocimientos técnicos, pero que no hay muchos donde puedan simplemente expresar los altos y bajos de su día a día como programadores, por lo que esta red social les pareció muy atractiva. 
+
+También opinaron que sin importar los años de experiencia que se tenga en el área, las personas que apenas comienzan se pueden beneficiar de aquellos que van más adelante y viceversa. 
+
+## Historias de usuario
+
+Después de realizar nuestras entrevistas, dividimos nuestro proyecto en 9 historias de usuario que se presentan a continuación: 
+
+- **Historia de usuario 1:** YO COMO desarrollador web, QUIERO registrarme en la aplicación con un correo y contraseña, PARA tener una cuenta en Behind Code
+
+- **Historia de usuario 2:** YO COMO desarrollador de BC QUIERO validar los campos del formulario de registro PARA asegurarme de que estos sean diligenciados correctamente
+
+- **Historia de usuario 3:** YO COMO usuario QUIERO poder cerrar la sesión PARA no tener la sesión abierta todo el tiempo por seguridad
+
+- **Historia de usuario 4:** YO COMO usuario QUIERO iniciar sesión con mi correo y contraseña PARA acceder al contenido de la aplicación
+
+- **Historia de usuario 5:** YO COMO web dev QUIERO iniciar sesión con mi cuenta de google PARA acceder a la aplicación más fácilmente
+
+- **Historia de usuario 6:** YO COMO usuario QUIERO crear publicaciones PARA compartir mis experiencias como web dev con otras personas en la industria
+
+- **Historia de usuario 7:** YO COMO usuario QUIERO poder reaccionar a la publicación de otra persona PARA generar interacción
+
+- **Historia de usuario 8:** YO COMO usuario QUIERO poder eliminar una publicación PARA que no se muestre en mi muro
+
+- **Historia de usuario 9:** YO COMO usuario QUIERO poder editar mis publicaciones PARA actualizar su contenido
+
+## Prototipos de baja y alta fidelidad
+
+Para los prototipos de baja fidelidad utilizamos Balsamiq. Este es el prototipo de las pantallas de inicio de sesión y registro mobile. El resto de prototipos se encuentran en la carpeta src/images/prototipos.
+
+![Prototipo mobile de baja fidelidad](src/images/prototipos/Mobile-SN-registro.png)
+
+Los prototipos de alta fidelidad fueron realizados en Figma. Este es el prototipo de las vistas mobiles. El resto de prototipos se pueden encontrar en este [link](https://www.figma.com/file/l9iQFS0YRrHTwQwL4Ix9aT/Behind-Code?node-id=0%3A1)
+
+![Prototipo mobile de baja fidelidad](src/images/prototipos/mobile-alta.png)
+
+___
+
+# Instrucciones de desarrollo dadas por Laboratoria
+
 # Creando una Red Social
 
 ## Índice
