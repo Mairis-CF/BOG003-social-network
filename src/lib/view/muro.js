@@ -24,10 +24,12 @@ export const createTimeLineView = () => {
         <img src="images/log-out1.png" alt="Log Out">
       </button>
     </header>
-    <div id="modalDiv" class="modal-confirm">
+    <div id="containerDelete" class="container-delete">
+      <div id="modalDiv" class="modal-confirm">
         <p>¿Seguro que quieres eliminar esta publicación?</p>
         <button class="delete-confirm">Eliminar</button>
         <button class="cancel-delete">Cancelar</button>
+      </div>
     </div>
     <div id="containerEdit" class="container-edit">
       <div id="modalEdit" class="modal-edit">
@@ -151,34 +153,6 @@ export const createTimeLineView = () => {
       likeCount.style.display = "block";
     }
 
-    // const btnSave = timeLineSection.querySelector('#btnSave');
-    // btnSave.setAttribute('class', 'hideBtn');
-
-    // const hideBtn = (btn) => btn.setAttribute('class', 'hideBtn');
-    // const showBtn = (btn) => btn.removeAttribute('class', 'hideBtn');
-
-    // // editar una publicación
-    // editBtn.addEventListener('click', (e) => {
-    //   e.preventDefault();
-    //   // mostrar botón de guardar y ocultar de publicar
-    //   showBtn(btnSave);
-    //   hideBtn(btnPost);
-    //   const idPost = e.target.dataset.id;
-    //   const userPost = doc.data().userPost;
-    //   postBox.value = userPost;
-
-    //   // ejecutando boton guardar post editado
-    //   btnSave.addEventListener('click', (e) => {
-    //     e.preventDefault();
-    //     const newText = postBox.value;
-    //     updatePost(idPost, newText)
-    //     postContent.textContent = doc.data().userPost;
-
-    //     /* postBox.value = ''; */
-    //     showBtn(btnPost);
-    //     hideBtn(btnSave);
-    //   });
-    // });
     /* Mostrar ventana modal de editar post*/
     editBtn.addEventListener("click", (e) => {
       const idPost = e.target.parentElement.getAttribute("data-id");
@@ -192,7 +166,7 @@ export const createTimeLineView = () => {
     /* Mostrar ventana modal de confirmación borrar*/
     deleteBtn.addEventListener("click", (e) => {
       const idPost = e.target.parentElement.getAttribute("data-id");
-      modalDiv.style.display = "block";
+      containerDelete.style.display = "block";
       modalDiv.setAttribute("data-id", idPost);
     });
 
@@ -223,10 +197,10 @@ export const createTimeLineView = () => {
       const idPost = e.target.parentElement.getAttribute("data-id");
       deletePost(idPost);
       modalDiv.removeAttribute("data-id");
-      modalDiv.style.display = "none";
+      containerDelete.style.display = "none";
     } else if (e.target.className === "cancel-delete") {
       modalDiv.removeAttribute("data-id");
-      modalDiv.style.display = "none";
+      containerDelete.style.display = "none";
     }
   };
   modalDiv.addEventListener("click", confirmDelete);

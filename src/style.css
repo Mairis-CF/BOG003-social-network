@@ -298,9 +298,10 @@ p.likesCounter {
   margin-left: 5px;
   margin-right: 5px;
 }
-
-.modal-confirm {
+.container-delete {
   display: none;
+}
+.modal-confirm {
   width: 600px;
   border-radius: 20px;
   text-align: center;
@@ -353,5 +354,5 @@ button.delete-confirm {
 /* modal editar */
 
 .container-edit {
-display: none;
+  display: none;
 }
