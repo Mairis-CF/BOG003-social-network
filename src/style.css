@@ -299,18 +299,6 @@ p.likesCounter {
   margin-right: 5px;
 }
 
-/* estilos ventana modal */
-/* div#container-modal {
-  display: none;
-  background-color: #000000cc;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-} */
 .modal-confirm {
   display: none;
   width: 600px;
