@@ -51,6 +51,4 @@ export const removeLike = (uId, postId) => db.collection('posts').doc(postId).up
   likes: firebase.firestore.FieldValue.arrayRemove(uId),
 });
 
-/* export const editPost = (postId, newPost) => {
-  db.collection('posts').doc(postId).update(newPost);
-}; */
+export const updatePost = (postId, postText) => db.collection('posts').doc(postId).update({userPost: postText});

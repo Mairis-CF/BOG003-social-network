@@ -1,5 +1,5 @@
 import {
-  savePost, getPosts, deletePost, logOutUser, addLike, removeLike,
+  savePost, getPosts, deletePost, updatePost, logOutUser, addLike, removeLike,
 } from '../index.js';
 
 export const createTimeLineView = () => {
