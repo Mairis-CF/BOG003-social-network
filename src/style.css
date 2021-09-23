@@ -410,3 +410,23 @@ button.cancel-edit,
 button.edit-confirm {
   margin: 10px;
 }
+
+button.cancel-edit,
+.edit-confirm {
+  background-color: var(--violet-code);
+  color: var(--white-code);
+  display: inline-block;
+  height: 40px;
+  border-radius: 10px;
+  box-shadow: 4px 4px 4px 0px var(--violet-code);
+  border: 2px solid #a54bd7;
+  cursor: pointer;
+  transition: all 0.5s;
+  font-weight: bold;
+  font-size: 15px;
+  width: 30%;
+}
+
+button.edit-confirm {
+  margin: 10px;
+}
