@@ -60,7 +60,9 @@ export const createTimeLineView = () => {
   const btnPost = timeLineSection.querySelector("#btnPost");
 
   postBox.addEventListener("keyup", () => {
-    btnPost.removeAttribute("disabled");
+    const noWhiteSpace = postForm.post.value.replace(/^\s$/g, '');
+    postBox.value = noWhiteSpace; 
+    btnPost.removeAttribute("disabled");  
   });
 
   postForm.addEventListener("submit", (e) => {
@@ -68,10 +70,14 @@ export const createTimeLineView = () => {
     const userName = firebase.auth().currentUser.displayName;
     const postText = postForm.post.value;
     const userId = firebase.auth().currentUser.uid;
-
-    savePost(userName, postText, userId);
-    postForm.reset();
-    btnPost.setAttribute("disabled", "disabled");
+    
+    if(postText == ''){
+      btnPost.setAttribute("disabled", "disabled");
+    }else {
+      savePost(userName, postText, userId);
+      postForm.reset();
+      btnPost.setAttribute("disabled", "disabled");
+    }
   });
 
   /* Crear e insertar los elementos de un post en el DOM */
