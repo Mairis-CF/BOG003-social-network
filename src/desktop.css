@@ -74,6 +74,10 @@
     margin-right: 15px;
   }
 
+  .logo-long.muro {
+    display: none;
+  }  
+
   .muro-section {
     padding-top: 9rem;
   }

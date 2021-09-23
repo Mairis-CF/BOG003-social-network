@@ -14,10 +14,10 @@ export const createTimeLineView = () => {
   const timeLineView = `    
     <header class="header-muro">
       <p class="user-name" id="userName"></p>
-      <div class="logo-short">
+      <div class="logo-short muro">
         <img src="images/logo_short.png" alt="Behind Code">
       </div>
-      <div class="logo-long">
+      <div class="logo-long muro">
         <img src="images/logo_long.png" alt="Behind Code">
       </div>
       <button type="button" id ="logOut" class="log-out"> 

@@ -36,6 +36,14 @@ body {
   width: 180px;
 }
 
+.logo-long img {
+  width: 200px;
+}
+
+/* .logo-long.muro {
+  display: none;
+} */
+
 .Google-login img {
   width: 40px;
   text-align: center;
@@ -64,6 +72,12 @@ body {
   margin: 0;
   margin-bottom: 2.5rem;
   text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 form input {
@@ -96,7 +110,8 @@ form button {
   transition: all 0.5s;
   font-weight: bold;
   font-size: 18px;
-  width: 90%;
+  width: 70%;
+  
 }
 
 form button:hover {
@@ -210,10 +225,6 @@ p.or::before {
 
 .log-out img {
   width: 50px;
-}
-
-.logo-long {
-  display: none;
 }
 
 .formulario {
