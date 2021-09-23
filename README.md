@@ -2,6 +2,8 @@
 
 ![Behind Code logo](src/images/logo_long.png)
 
+Link a nuestra [Red social](https://marlys26.github.io/BOG003-social-network/src/#/ingreso)
+
 # Social Network - BEHIND CODE
 
 ## Definición de producto
