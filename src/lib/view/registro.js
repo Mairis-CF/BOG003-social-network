@@ -27,7 +27,7 @@ export const createRegisterView = () => {
       <div class="new-account">
         <a href="#/ingreso">¿Ya tienes una cuenta?</a>
       </div>
-      <p class ="or">or</p>
+      <p class ="o">or</p>
       <p>Ingresa con </p>
       <button type="button" class="Google-login">
           <img src="images/google.png" alt="Log in with Google">
