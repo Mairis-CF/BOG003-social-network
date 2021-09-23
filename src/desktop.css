@@ -43,27 +43,33 @@
   .muro-section {
     display: block;
   }
+
   #postBox {
     display: block;
     width: 88%;
   }
+
   #btnPost {
     width: 100%;
   }
+
   #postForm {
     margin-bottom: 3rem;
     border-bottom: 2px solid #8803d2;
     position: relative;
   }
+
   .user-name {
     font-size: 1.1rem;
     margin-left: 2px;
     padding: 5px;
   }
+
   .header-muro {
     width: 83%;
     border-bottom: 2px solid #8803d2;
   }
+  
   .logo-short {
     margin-right: 15px;
   }
@@ -80,7 +86,7 @@
     left: 15%;
   }
 
-  .modal-confirm p{
+  .modal-confirm p {
     margin-top: 2rem;
     padding: 0 1rem;
   }
@@ -89,7 +95,7 @@
     margin: 0;
     margin-top: 20px;
     margin-right: 15px;
-}
+  }
 
   /* modal editar  */
   div#modalEdit {
@@ -103,6 +109,5 @@
     padding: 2rem;
     margin: 1rem;
     margin-top: 2rem;
-}
-
+  }
 }

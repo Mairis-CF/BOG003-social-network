@@ -215,10 +215,12 @@ p.or::before {
 .logo-long {
   display: none;
 }
+
 .formulario {
   grid-area: 1 / 1 / 2 / 2;
   position: relative;
 }
+
 #postBox {
   width: 80%;
   margin-bottom: 1rem;
@@ -229,6 +231,7 @@ p.or::before {
   font-family: "Roboto";
   padding: 1rem;
 }
+
 #postForm {
   position: sticky;
   top: 10%;
@@ -298,6 +301,7 @@ p.likesCounter {
   margin-left: 5px;
   margin-right: 5px;
 }
+
 .container-delete {
   display: none;
   background-color: #000000cc;
@@ -310,6 +314,7 @@ p.likesCounter {
   left: 0;
   z-index: 99;
 }
+
 .modal-confirm {
   width: 600px;
   border-radius: 20px;
@@ -322,6 +327,7 @@ p.likesCounter {
   right: 0;
   left: 30%;
 }
+
 .modal-confirm p {
   margin-top: 7rem;
 }
@@ -341,6 +347,7 @@ button.cancel-delete,
   font-size: 15px;
   width: 30%;
 }
+
 button.delete-confirm {
   margin: 20px;
 }
@@ -372,6 +379,7 @@ div#modalEdit {
   right: 0;
   left: 30%;
 }
+
 textarea#editBox {
   width: 60%;
   background-color: #333333;
@@ -398,6 +406,7 @@ button.cancel-edit,
   font-size: 15px;
   width: 30%;
 }
+
 button.edit-confirm {
   margin: 10px;
 }
