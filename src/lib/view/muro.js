@@ -166,7 +166,7 @@ export const createTimeLineView = () => {
     /* Mostrar ventana modal de confirmación borrar*/
     deleteBtn.addEventListener("click", (e) => {
       const idPost = e.target.parentElement.getAttribute("data-id");
-      containerDelete.style.display = "block";
+      containerDelete.style.display = "flex";
       modalDiv.setAttribute("data-id", idPost);
     });
 
