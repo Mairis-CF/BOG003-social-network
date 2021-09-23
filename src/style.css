@@ -40,10 +40,6 @@ body {
   width: 200px;
 }
 
-/* .logo-long.muro {
-  display: none;
-} */
-
 .Google-login img {
   width: 40px;
   text-align: center;
@@ -230,6 +226,10 @@ p.or::before {
 .formulario {
   grid-area: 1 / 1 / 2 / 2;
   position: relative;
+}
+
+textarea {
+  resize: none;
 }
 
 #postBox {
