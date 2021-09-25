@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable max-len */
 export const createUser = (email, password, userName) => {
   const createUserFirebase = firebase
     .auth()
@@ -51,4 +53,4 @@ export const removeLike = (uId, postId) => db.collection('posts').doc(postId).up
   likes: firebase.firestore.FieldValue.arrayRemove(uId),
 });
 
-export const updatePost = (postId, postText) => db.collection('posts').doc(postId).update({userPost: postText});
+export const updatePost = (postId, postText) => db.collection('posts').doc(postId).update({ userPost: postText });

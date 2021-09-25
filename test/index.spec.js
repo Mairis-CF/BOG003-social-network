@@ -1,6 +1,5 @@
 import { signInUser, logOutUser, signInWithGoogle } from '../src/lib/index.js';
 
-
 const firebasemock = require('firebase-mock');
 
 const mockauth = new firebasemock.MockAuthentication();
@@ -12,29 +11,22 @@ global.firebase = mocksdk;
 mocksdk.auth().autoFlush();
 
 describe('signInUser', () => {
-  it('deberia permitir iniciar sesión con correo y contraseña', () => {
-    return signInUser("karenp@gmail.com", "1234567")
+  it('deberia permitir iniciar sesión con correo y contraseña', () => signInUser('karenp@gmail.com', '1234567')
     .then((user) => {
-    expect(user.email).toBe('karenp@gmail.com');  
-    })
-  });
+      expect(user.email).toBe('karenp@gmail.com');
+    }));
 });
 
 describe('logOutUser', () => {
-  it('Deberia cerrar sesión', () => {
-    return logOutUser()
+  it('Deberia cerrar sesión', () => logOutUser()
     .then((user) => {
-      expect(user).toBe(undefined);  
-    })
-  });
+      expect(user).toBe(undefined);
+    }));
 });
 
 describe('signInWithGoogle', () => {
-  it('Deberia iniciar sesion con cuenta de Google', () => {
-    return signInWithGoogle()
+  it('Deberia iniciar sesion con cuenta de Google', () => signInWithGoogle()
     .then((result) => {
-      console.log(result)
       expect(typeof result).toBe('object');
-    })
-  });
+    }));
 });

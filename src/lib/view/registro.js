@@ -1,5 +1,6 @@
-import { createUser } from '../index.js';
-import { signInWithGoogle } from '../index.js';
+/* eslint-disable no-console */
+
+import { createUser, signInWithGoogle } from '../index.js';
 
 export const createRegisterView = () => {
   const registerSection = document.createElement('section');
@@ -48,73 +49,73 @@ export const createRegisterView = () => {
     e.preventDefault();
     const userName = nameInput.value;
     const lastName = lastNameInput.value;
-    const fullName = userName + ' ' + lastName;
+    const fullName = `${userName} ${lastName}`;
     const email = emailInput.value;
     const password = passwordInput.value;
     const passwordConfirm = passwordInputConfirm.value;
 
     /* validaciones de campos */
-    if(userName === ''|| lastName === '' || email === '' || password === '' || passwordConfirm === ''){
+    if (userName === '' || lastName === '' || email === '' || password === '' || passwordConfirm === '') {
       messageContainer.setAttribute('class', 'error');
-      messageContainer.innerHTML = "❌ Hay campos vacíos";
-    } else if(userName.length < 2|| lastName.length < 2){
+      messageContainer.innerHTML = '❌ Hay campos vacíos';
+    } else if (userName.length < 2 || lastName.length < 2) {
       messageContainer.setAttribute('class', 'error');
-      messageContainer.innerHTML = "❌ Tu nombre y apellido deben tener mínimo 2 caracteres";
-    } else if(password !== passwordConfirm){
+      messageContainer.innerHTML = '❌ Tu nombre y apellido deben tener mínimo 2 caracteres';
+    } else if (password !== passwordConfirm) {
       messageContainer.setAttribute('class', 'error');
-      messageContainer.innerHTML = "❌ Tu contraseña no coincide";
-    }
-    else {
+      messageContainer.innerHTML = '❌ Tu contraseña no coincide';
+    } else {
       createUser(email, password, fullName)
-      .then(()=>{
-        messageContainer.removeAttribute('class', 'error');
-        messageContainer.innerHTML = "✅ Gracias por registrarte";
-        setTimeout(()=>{window.location.hash = '#/muro'; }, 2000);
-      }).catch((error) => {
+        .then(() => {
+          messageContainer.removeAttribute('class', 'error');
+          messageContainer.innerHTML = '✅ Gracias por registrarte';
+          setTimeout(() => { window.location.hash = '#/muro'; }, 2000);
+        }).catch((error) => {
         /* validaciones de firebase */
-        var errorCode = error.code;
-        switch (errorCode) {
-          case "auth/invalid-email":
-            messageContainer.setAttribute('class', 'error');
-            messageContainer.innerHTML = "❌ Ingrese un correo válido";
-            break;
-          
-          case "auth/weak-password":
-            messageContainer.setAttribute('class', 'error');
-            messageContainer.innerHTML = "❌ La contraseña debe tener mínimo 6 caracteres";
-            break;
+          const errorCode = error.code;
+          switch (errorCode) {
+            case 'auth/invalid-email':
+              messageContainer.setAttribute('class', 'error');
+              messageContainer.innerHTML = '❌ Ingrese un correo válido';
+              break;
 
-          case "auth/email-already-in-use":
-            messageContainer.setAttribute('class', 'error');
-            messageContainer.innerHTML = "❌ El correo ya está registrado";
-            break;
-        }
-      });
+            case 'auth/weak-password':
+              messageContainer.setAttribute('class', 'error');
+              messageContainer.innerHTML = '❌ La contraseña debe tener mínimo 6 caracteres';
+              break;
+
+            case 'auth/email-already-in-use':
+              messageContainer.setAttribute('class', 'error');
+              messageContainer.innerHTML = '❌ El correo ya está registrado';
+              break;
+
+            default:
+          }
+        });
     }
-  })
-  
+  });
+
   /* Quitar el mensaje de error cuando el usuario escriba */
   const clearErrorMessage = (e) => {
-    if(e.target.tagName === 'INPUT'){
+    if (e.target.tagName === 'INPUT') {
       messageContainer.innerHTML = '';
     }
-  }
-  
+  };
+
   const form = registerSection.querySelector('form');
-  form.addEventListener('keyup', clearErrorMessage); 
+  form.addEventListener('keyup', clearErrorMessage);
 
-  const btnGoogle = registerSection.querySelector(".Google-login");
+  const btnGoogle = registerSection.querySelector('.Google-login');
 
-  btnGoogle.addEventListener("click",(e) => {
+  btnGoogle.addEventListener('click', (e) => {
     e.preventDefault();
     signInWithGoogle()
-    .then(() => {
-      window.location.hash = "#/muro";
-    }).catch ((error) => {
-      console.log(error.message);
-    })
-  })
+      .then(() => {
+        window.location.hash = '#/muro';
+      }).catch((error) => {
+        console.log(error.message);
+      });
+  });
 
   return registerSection;
 };
-

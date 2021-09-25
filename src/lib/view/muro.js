@@ -50,7 +50,7 @@ export const createTimeLineView = () => {
   `;
   timeLineSection.innerHTML = timeLineView;
 
-  /* Mostrar el nombre del usuario en el header */
+  /* Mostrar el nombre y foto del usuario en el header */
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       const userName = timeLineSection.querySelector('#userName');
