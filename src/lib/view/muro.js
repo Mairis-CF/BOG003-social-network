@@ -174,7 +174,7 @@ export const createTimeLineView = () => {
       modalDiv.setAttribute('data-id', idPost);
     });
 
-    /* Fin de la función show post */.
+    /* Fin de la función show post */
   };
 
   /* Editar publicación */
