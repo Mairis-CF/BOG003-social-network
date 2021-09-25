@@ -60,14 +60,15 @@
   }
 
   .user-name {
-    font-size: 1.1rem;
+    font-size: 1rem;
     margin-left: 2px;
     padding: 5px;
   }
 
   .header-muro {
-    width: 83%;
+    width: 80%;
     border-bottom: 2px solid #8803d2;
+   margin: 10px;
   }
   
   .logo-short {

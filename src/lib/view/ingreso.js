@@ -1,7 +1,8 @@
-import { signInUser, signInWithGoogle } from "../index.js";
+/* eslint-disable no-console */
+import { signInUser, signInWithGoogle } from '../index.js';
 
 export const createLogInView = () => {
-  const loginSection = document.createElement("section");
+  const loginSection = document.createElement('section');
   loginSection.setAttribute('class', 'login-section');
   const loginView = `
   <div class="brand">
@@ -35,63 +36,64 @@ export const createLogInView = () => {
   </div>`;
   loginSection.innerHTML = loginView;
 
-  const emailSignIn = loginSection.querySelector("#emailSignIn");
-  const passwordSignIn = loginSection.querySelector("#passwordSignIn");
-  const btnSignIn = loginSection.querySelector("#btnSignIn");
+  const emailSignIn = loginSection.querySelector('#emailSignIn');
+  const passwordSignIn = loginSection.querySelector('#passwordSignIn');
+  const btnSignIn = loginSection.querySelector('#btnSignIn');
   const messageContainer = loginSection.querySelector('#message');
 
-  btnSignIn.addEventListener("click", (e) => {
+  btnSignIn.addEventListener('click', (e) => {
     e.preventDefault();
     const email = emailSignIn.value;
     const password = passwordSignIn.value;
 
     signInUser(email, password)
       .then(() => {
-        window.location.hash = "#/muro";
+        window.location.hash = '#/muro';
       })
       .catch((error) => {
         /* validaciones de firebase */
-        var errorCode = error.code;
+        const errorCode = error.code;
         switch (errorCode) {
-          case "auth/user-not-found":
-            messageContainer.setAttribute("class", "error");
-            messageContainer.innerHTML = "❌ Usuario no registrado";
+          case 'auth/user-not-found':
+            messageContainer.setAttribute('class', 'error');
+            messageContainer.innerHTML = '❌ Usuario no registrado';
             break;
 
-          case "auth/wrong-password":
-            messageContainer.setAttribute("class", "error");
-            messageContainer.innerHTML = "❌ Contraseña incorrecta";
+          case 'auth/wrong-password':
+            messageContainer.setAttribute('class', 'error');
+            messageContainer.innerHTML = '❌ Contraseña incorrecta';
             break;
 
-          case "auth/invalid-email":
-            messageContainer.setAttribute("class", "error");
-            messageContainer.innerHTML = "❌ Correo inválido";
+          case 'auth/invalid-email':
+            messageContainer.setAttribute('class', 'error');
+            messageContainer.innerHTML = '❌ Correo inválido';
             break;
+
+          default:
         }
       });
   });
 
   /* Quitar el mensaje de error cuando el usuario escriba */
   const clearErrorMessage = (e) => {
-    if (e.target.tagName === "INPUT") {
-    messageContainer.innerHTML = "";
+    if (e.target.tagName === 'INPUT') {
+      messageContainer.innerHTML = '';
     }
   };
 
-  const form = loginSection.querySelector("form");
-  form.addEventListener("keyup", clearErrorMessage); 
+  const form = loginSection.querySelector('form');
+  form.addEventListener('keyup', clearErrorMessage);
 
-  const btnGoogle = loginSection.querySelector(".Google-login");
+  const btnGoogle = loginSection.querySelector('.Google-login');
 
-  btnGoogle.addEventListener("click",(e) => {
+  btnGoogle.addEventListener('click', (e) => {
     e.preventDefault();
     signInWithGoogle()
-    .then(() => {
-      window.location.hash = "#/muro";
-    }).catch ((error) => {
-      console.log(error.message);
-    })
-  })
+      .then(() => {
+        window.location.hash = '#/muro';
+      }).catch((error) => {
+        console.log(error.message);
+      });
+  });
   return loginSection;
 };
-

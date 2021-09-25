@@ -200,27 +200,31 @@ p.or::before {
 .header-muro {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   position: absolute;
   width: 100%;
   top: 0;
   border-bottom: 2px solid #8803d2;
+  padding: 5px;
+  align-self: center;
 }
 
 .user-name {
   font-size: 1.5rem;
-  margin-left: 35px;
+  margin-left: 1px;
+  margin-right: 0;
 }
 
 .log-out {
   background-color: var(--black-code);
   border: none;
   cursor: pointer;
-  margin-right: 30px;
+  
 }
 
 .log-out img {
-  width: 50px;
+  width: 40px;
+  border-radius: 50%;
 }
 
 .formulario {
@@ -440,4 +444,19 @@ button.cancel-edit,
 
 button.edit-confirm {
   margin: 10px;
+}
+
+.user-photo {
+  display: none;
+  border-radius:50%;
+  width: 45px;
+  margin-left: 1px; 
+}
+
+.user-credential {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-around;
+  margin-left: 1px;
 }

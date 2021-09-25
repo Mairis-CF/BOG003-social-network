@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   savePost,
   getPosts,
@@ -13,9 +14,12 @@ export const createTimeLineView = () => {
   timeLineSection.setAttribute('class', 'muro-section');
   const timeLineView = `    
     <header class="header-muro">
+    <div class="user-credential">
+      <img class="user-photo"id="userPhoto" alt="user photo">
       <p class="user-name" id="userName"></p>
+      </div>
       <div class="logo-short muro">
-        <img src="images/logo_short.png" alt="Behind Code">
+        <img class="logo-logo_short" src="images/logo_short.png" alt="Behind Code">
       </div>
       <div class="logo-long muro">
         <img src="images/logo_long.png" alt="Behind Code">
@@ -54,24 +58,38 @@ export const createTimeLineView = () => {
     }
   });
 
-  /* Guardar el post en la base de datos */
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user.photoURL) {
+      const userPhoto = timeLineSection.querySelector('#userPhoto');
+      userPhoto.style.display = 'block';
+      userPhoto.setAttribute('src', user.photoURL);
+    }
+  });
+
+  const modalDiv = timeLineSection.querySelector('#modalDiv');
+  const modalEdit = timeLineSection.querySelector('#modalEdit');
+  const containerEdit = timeLineSection.querySelector('#containerEdit');
+  const containerDelete = timeLineSection.querySelector('#containerDelete');
   const postForm = timeLineSection.querySelector('#postForm');
   const postBox = timeLineSection.querySelector('#postBox');
   const btnPost = timeLineSection.querySelector('#btnPost');
 
+  /* Se habilita el botón para publicar post cuando se ingresa
+   texto en el cuadro de texto para publicar */
   postBox.addEventListener('keyup', () => {
     const noWhiteSpace = postForm.post.value.replace(/^\s$/g, '');
     postBox.value = noWhiteSpace;
     btnPost.removeAttribute('disabled');
   });
 
+  /* Guardar el post en la base de datos */
   postForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const userName = firebase.auth().currentUser.displayName;
     const postText = postForm.post.value;
     const userId = firebase.auth().currentUser.uid;
 
-    if (postText == '') {
+    if (postText === '') {
       btnPost.setAttribute('disabled', 'disabled');
     } else {
       savePost(userName, postText, userId);
@@ -83,6 +101,7 @@ export const createTimeLineView = () => {
   /* Crear e insertar los elementos de un post en el DOM */
   const postSection = timeLineSection.querySelector('#postSection');
 
+  // Esta función muestra cada post
   const showPost = (doc) => {
     /* Crear los elementos de la publicación y agregar clase para estilos */
     const postContainer = document.createElement('div');
@@ -178,7 +197,6 @@ export const createTimeLineView = () => {
   };
 
   /* Editar publicación */
-  const modalEdit = timeLineSection.querySelector('#modalEdit');
 
   const editPost = (e) => {
     if (e.target.className === 'edit-confirm') {
@@ -194,7 +212,6 @@ export const createTimeLineView = () => {
   modalEdit.addEventListener('click', editPost);
 
   /* Eliminar publicación */
-  const modalDiv = timeLineSection.querySelector('#modalDiv');
   const confirmDelete = (e) => {
     if (e.target.className === 'delete-confirm') {
       const idPost = e.target.parentElement.getAttribute('data-id');
