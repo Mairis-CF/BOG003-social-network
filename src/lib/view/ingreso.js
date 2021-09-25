@@ -23,7 +23,7 @@ export const createLogInView = () => {
       <p id="message"></p>
       <button type="submit" id="btnSignIn">Ingresar</button>
     </form>
-    <p class="or">or</p>
+    <p class="or">o</p>
     <p>Ingresa con tu cuenta de Google</p>
     <button type="button" class="Google-login">
         <img src="images/google.png" alt="Log in with Google">

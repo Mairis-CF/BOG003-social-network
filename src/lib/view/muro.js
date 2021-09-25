@@ -1,5 +1,11 @@
 import {
-  savePost, getPosts, deletePost, logOutUser, addLike, removeLike,
+  savePost,
+  getPosts,
+  deletePost,
+  updatePost,
+  logOutUser,
+  addLike,
+  removeLike,
 } from '../index.js';
 
 export const createTimeLineView = () => {
@@ -8,16 +14,30 @@ export const createTimeLineView = () => {
   const timeLineView = `    
     <header class="header-muro">
       <p class="user-name" id="userName"></p>
-      <div class="logo-short">
+      <div class="logo-short muro">
         <img src="images/logo_short.png" alt="Behind Code">
       </div>
-      <div class="logo-long">
+      <div class="logo-long muro">
         <img src="images/logo_long.png" alt="Behind Code">
       </div>
       <button type="button" id ="logOut" class="log-out"> 
         <img src="images/log-out1.png" alt="Log Out">
       </button>
     </header>
+    <div id="containerDelete" class="container-delete">
+      <div id="modalDiv" class="modal-confirm">
+        <p>¿Seguro que quieres eliminar esta publicación?</p>
+        <button class="delete-confirm">Eliminar</button>
+        <button class="cancel-delete">Cancelar</button>
+      </div>
+    </div>
+    <div id="containerEdit" class="container-edit">
+      <div id="modalEdit" class="modal-edit">
+        <textarea id="editBox" name="edit"></textarea>
+        <button class="edit-confirm">Guardar</button>
+        <button class="cancel-edit">Cancelar</button>
+      </div>
+    </div>
     <form id="postForm">
       <textarea id="postBox" name="post" placeholder="Comparte tu experiencia..."></textarea>
       <button type="submit" id="btnPost" disabled>Publicar</button>
@@ -40,6 +60,8 @@ export const createTimeLineView = () => {
   const btnPost = timeLineSection.querySelector('#btnPost');
 
   postBox.addEventListener('keyup', () => {
+    const noWhiteSpace = postForm.post.value.replace(/^\s$/g, '');
+    postBox.value = noWhiteSpace;
     btnPost.removeAttribute('disabled');
   });
 
@@ -49,9 +71,13 @@ export const createTimeLineView = () => {
     const postText = postForm.post.value;
     const userId = firebase.auth().currentUser.uid;
 
-    savePost(userName, postText, userId);
-    postForm.reset();
-    btnPost.setAttribute('disabled', 'disabled');
+    if (postText == '') {
+      btnPost.setAttribute('disabled', 'disabled');
+    } else {
+      savePost(userName, postText, userId);
+      postForm.reset();
+      btnPost.setAttribute('disabled', 'disabled');
+    }
   });
 
   /* Crear e insertar los elementos de un post en el DOM */
@@ -99,7 +125,7 @@ export const createTimeLineView = () => {
     postContainer.appendChild(postContent);
     btnsContainer.append(likeBtn, likeCount, editBtn, deleteBtn);
     postContainer.appendChild(btnsContainer);
-    postSection.appendChild(postContainer);
+    postSection.append(postContainer);
 
     /* Mostrar los botones de editar y borrar solo al usuario logueado */
     const currentUserId = firebase.auth().currentUser.uid;
@@ -118,11 +144,9 @@ export const createTimeLineView = () => {
       const likesByPost = doc.data().likes;
 
       if (likesByPost.includes(currentUserId)) {
-        removeLike(currentUserId, likedPost)
-          .catch((error) => console.log(error));
+        removeLike(currentUserId, likedPost).catch((error) => console.log(error));
       } else {
-        addLike(currentUserId, likedPost)
-          .catch((error) => console.log(error));
+        addLike(currentUserId, likedPost).catch((error) => console.log(error));
       }
     });
 
@@ -133,14 +157,56 @@ export const createTimeLineView = () => {
       likeCount.style.display = 'block';
     }
 
-    /* Eliminar una publicación */
-    deleteBtn.addEventListener('click', (e) => {
+    /* Mostrar ventana modal de editar post */
+    editBtn.addEventListener('click', (e) => {
       const idPost = e.target.parentElement.getAttribute('data-id');
-      deletePost(idPost);
+      containerEdit.style.display = 'block';
+      modalEdit.setAttribute('data-id', idPost);
+      const editBox = timeLineSection.querySelector('#editBox');
+      const oldText = doc.data().userPost;
+      editBox.value = oldText;
     });
 
-    /* Fin de la función show post */
+    /* Mostrar ventana modal de confirmación borrar */
+    deleteBtn.addEventListener('click', (e) => {
+      const idPost = e.target.parentElement.getAttribute('data-id');
+      containerDelete.style.display = 'flex';
+      modalDiv.setAttribute('data-id', idPost);
+    });
+
+    /* Fin de la función show post */.
   };
+
+  /* Editar publicación */
+  const modalEdit = timeLineSection.querySelector('#modalEdit');
+
+  const editPost = (e) => {
+    if (e.target.className === 'edit-confirm') {
+      const idPost = e.target.parentElement.getAttribute('data-id');
+      const editBox = timeLineSection.querySelector('#editBox');
+      const newText = editBox.value;
+      updatePost(idPost, newText);
+      containerEdit.style.display = 'none';
+    } else if (e.target.className === 'cancel-edit') {
+      containerEdit.style.display = 'none';
+    }
+  };
+  modalEdit.addEventListener('click', editPost);
+
+  /* Eliminar publicación */
+  const modalDiv = timeLineSection.querySelector('#modalDiv');
+  const confirmDelete = (e) => {
+    if (e.target.className === 'delete-confirm') {
+      const idPost = e.target.parentElement.getAttribute('data-id');
+      deletePost(idPost);
+      modalDiv.removeAttribute('data-id');
+      containerDelete.style.display = 'none';
+    } else if (e.target.className === 'cancel-delete') {
+      modalDiv.removeAttribute('data-id');
+      containerDelete.style.display = 'none';
+    }
+  };
+  modalDiv.addEventListener('click', confirmDelete);
 
   /* Obtener los post de la base de datos y mostrarlos en el dom */
   getPosts((snapshot) => {
