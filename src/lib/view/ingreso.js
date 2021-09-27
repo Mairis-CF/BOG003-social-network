@@ -70,6 +70,8 @@ export const createLogInView = () => {
             break;
 
           default:
+            messageContainer.setAttribute('class', 'error');
+            messageContainer.innerHTML = '❌ Ocurrió un error inesperado';
         }
       });
   });

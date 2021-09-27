@@ -66,16 +66,21 @@ export const createTimeLineView = () => {
     }
   });
 
+  // elementos usados en ventanas modal de editar y eliminar
   const modalDiv = timeLineSection.querySelector('#modalDiv');
   const modalEdit = timeLineSection.querySelector('#modalEdit');
   const containerEdit = timeLineSection.querySelector('#containerEdit');
   const containerDelete = timeLineSection.querySelector('#containerDelete');
+
+  // la caja de texto para crear posts se encuentra dentro de un elemento tipo form
   const postForm = timeLineSection.querySelector('#postForm');
   const postBox = timeLineSection.querySelector('#postBox');
+
+  // boton para publicar un post
   const btnPost = timeLineSection.querySelector('#btnPost');
 
   /* Se habilita el botón para publicar post cuando se ingresa
-   texto en el cuadro de texto para publicar */
+   texto en el elemento para crear un post. Se evita que el post se guarde vacio */
   postBox.addEventListener('keyup', () => {
     const noWhiteSpace = postForm.post.value.replace(/^\s$/g, '');
     postBox.value = noWhiteSpace;
@@ -133,7 +138,7 @@ export const createTimeLineView = () => {
     const likeCount = document.createElement('p');
     likeCount.setAttribute('class', 'likesCounter');
 
-    /* Agregar el texto del nombre y la publicación a los elementos */
+    /* Agregar elementos de texto en cada post */
     postBy.textContent = `Publicado por ${doc.data().user}`;
     postContent.textContent = doc.data().userPost;
     likeCount.textContent = doc.data().likes.length;
@@ -150,21 +155,19 @@ export const createTimeLineView = () => {
     const currentUserId = firebase.auth().currentUser.uid;
     const userIdPost = doc.data().userId;
 
-    /* cuando el usuario logueado realice una publicación, podrá ver los elementos de editar
-    y eliminar */
     if (currentUserId === userIdPost) {
       editBtn.style.display = 'block';
       deleteBtn.style.display = 'block';
     }
 
-    /* Función para el conteo de los likes (uno por persona) */
+    /* Agregando likes a cada post, solo uno por usuario */
     likeBtn.addEventListener('click', (e) => {
-      const likedPost = e.target.dataset.id;
-      const likesByPost = doc.data().likes;
+      const likedPost = e.target.dataset.id; // selecciona el post
+      const likesByPost = doc.data().likes; // trae los post de la base de datos
 
-      if (likesByPost.includes(currentUserId)) {
+      if (likesByPost.includes(currentUserId)) { // retira el like si el mismo usuario hace click
         removeLike(currentUserId, likedPost).catch((error) => console.log(error));
-      } else {
+      } else { // de otra forma, agrega el like
         addLike(currentUserId, likedPost).catch((error) => console.log(error));
       }
     });
@@ -178,8 +181,8 @@ export const createTimeLineView = () => {
 
     /* Mostrar ventana modal de editar post */
     editBtn.addEventListener('click', (e) => {
-      const idPost = e.target.parentElement.getAttribute('data-id');
-      containerEdit.style.display = 'block';
+      const idPost = e.target.parentElement.getAttribute('data-id'); // trae al post por su id
+      containerEdit.style.display = 'block'; // muestra ventana modal
       modalEdit.setAttribute('data-id', idPost);
       const editBox = timeLineSection.querySelector('#editBox');
       const oldText = doc.data().userPost;
